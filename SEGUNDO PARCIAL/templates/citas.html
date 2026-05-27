@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Citas</h1>
+    <a href="/citas/crear" class="btn btn-success">Nueva cita</a>
+  </div>
+
+  {% if citas %}
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Médico</th>
+            <th>Paciente</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cita in citas %}
+            <tr>
+              <td>{{ cita.fecha.strftime('%Y-%m-%d') }}</td>
+              <td>{{ cita.hora.strftime('%H:%M') }}</td>
+              <td>{{ cita.medico.nombre }}</td>
+              <td>{{ cita.paciente.nombre }}</td>
+              <td>
+                <a href="/citas/{{ cita.id }}/editar" class="btn btn-primary btn-sm">Editar</a>
+                <form action="/citas/{{ cita.id }}/eliminar" method="post" class="d-inline">
+                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Eliminar cita?');">Eliminar</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>No hay citas registradas.</p>
+  {% endif %}
+{% endblock %}

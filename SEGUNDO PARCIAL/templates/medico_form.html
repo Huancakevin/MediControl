@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      <h2>{{ medico and 'Editar médico' or 'Crear médico' }}</h2>
+    </div>
+    <div class="card-body">
+      <form method="post">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" value="{{ medico.nombre if medico else '' }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="especialidad" class="form-label">Especialidad</label>
+          <input type="text" class="form-control" id="especialidad" name="especialidad" value="{{ medico.especialidad if medico else '' }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="/medicos" class="btn btn-secondary">Cancelar</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

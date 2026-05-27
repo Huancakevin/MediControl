@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Pacientes</h1>
+    <a href="/pacientes/crear" class="btn btn-success">Nuevo paciente</a>
+  </div>
+
+  {% if pacientes %}
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Citas</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for paciente in pacientes %}
+            <tr>
+              <td>{{ paciente.nombre }}</td>
+              <td>{{ paciente.telefono }}</td>
+              <td>{{ paciente.citas|length }}</td>
+              <td>
+                <a href="/pacientes/{{ paciente.id }}/editar" class="btn btn-primary btn-sm">Editar</a>
+                <form action="/pacientes/{{ paciente.id }}/eliminar" method="post" class="d-inline">
+                  <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Eliminar paciente?');">Eliminar</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>No hay pacientes registrados.</p>
+  {% endif %}
+{% endblock %}
